@@ -98,7 +98,7 @@
 .contactListContent {
     grid-row: 2 / 3;
     overflow: auto;
-    height: 23rem;
+    height: 30rem;
 }
 
 .infoSection {

@@ -1,79 +1,45 @@
 import "./App.css";
-import {
-    Avatar,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-    TextField,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import { TextField } from "@mui/material";
 import InfoSession from "./InfoSession";
 import ContactStart from "./ContactStart";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
+import ContactList from "./ContactList";
 
 function App() {
-    const [contactList, setContactList] = useState({});
-
-    useEffect(() => {
-        fetch("https://rickandmortyapi.com/api/character")
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result);
-                setContactList(result);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
-
     return (
-        <div className="App">
-            <div className="container">
-                {/* Nav bar */}
-                <div className="navBar">
-                    <div className="navBarHeader">
-                        <div className="title">Rick and Morty</div>
+        <Router>
+            <div className="App">
+                <div className="container">
+                    {/* Nav bar */}
+                    <div className="navBar">
+                        <div className="navBarHeader">
+                            <div className="title">Rick and Morty</div>
+                        </div>
+                        <div className="navBarContact">
+                            <div className="title">
+                                <Link to="/contact">Contact</Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className="navBarContact">
-                        <div className="title">Contact</div>
-                    </div>
-                </div>
 
-                {/* Contact list */}
-                <div className="contactList">
-                    <div className="contactListHeader">
-                        <div className="title">Contact list</div>
-                        <TextField
-                            id="search-bar"
-                            variant="standard"
-                            size="small"
-                            placeholder="search any name"
-                        />
+                    {/* Contact list */}
+                    <div className="contactList">
+                        <div className="contactListHeader">
+                            <div className="title">Contact list</div>
+                            <TextField
+                                id="search-bar"
+                                variant="standard"
+                                size="small"
+                                placeholder="search any name"
+                            />
+                        </div>
+                        <div className="contactListContent">
+                            <ContactList />
+                        </div>
                     </div>
-                    <div className="contactListContent">
-                        <List>
-                            {contactList?.results?.map((item) => (
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemAvatar>
-                                            <Avatar
-                                                alt={item?.name}
-                                                src={item?.image}
-                                            />
-                                        </ListItemAvatar>
-                                        <ListItemText primary={item?.name} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </div>
-                </div>
 
-                {/* Info. session */}
-                <div className="infoSection">
-                    <Router>
+                    {/* Info. session */}
+                    <div className="infoSection">
                         <Routes>
                             <Route path="/contact" element={<ContactStart />} />
                             <Route
@@ -81,10 +47,10 @@ function App() {
                                 element={<InfoSession />}
                             />
                         </Routes>
-                    </Router>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Router>
     );
 }
 
