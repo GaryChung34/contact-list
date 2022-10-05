@@ -28,8 +28,10 @@ function ContactList() {
     return (
         <List>
             {contactList?.results?.map((item) => (
-                <ListItem disablePadding>
-                    <ListItemButton onClick={() => navigate("/contact/1")}>
+                <ListItem disablePadding key={item.id}>
+                    <ListItemButton
+                        onClick={() => navigate(`/contact/${item.id}`)}
+                    >
                         <ListItemAvatar>
                             <Avatar alt={item?.name} src={item?.image} />
                         </ListItemAvatar>
