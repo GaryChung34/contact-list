@@ -9,6 +9,9 @@ import {
     TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import InfoSession from "./InfoSession";
+import ContactStart from "./ContactStart";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 function App() {
     const [contactList, setContactList] = useState({});
@@ -19,16 +22,26 @@ function App() {
             .then((result) => {
                 console.log(result);
                 setContactList(result);
+            })
+            .catch((error) => {
+                console.error(error);
             });
     }, []);
 
     return (
         <div className="App">
             <div className="container">
+                {/* Nav bar */}
                 <div className="navBar">
-                    <div className="navBarHeader">Rick and Morty</div>
-                    <div className="navBarContact">Contact</div>
+                    <div className="navBarHeader">
+                        <div className="title">Rick and Morty</div>
+                    </div>
+                    <div className="navBarContact">
+                        <div className="title">Contact</div>
+                    </div>
                 </div>
+
+                {/* Contact list */}
                 <div className="contactList">
                     <div className="contactListHeader">
                         <div className="title">Contact list</div>
@@ -41,11 +54,6 @@ function App() {
                     </div>
                     <div className="contactListContent">
                         <List>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemText primary="abc" />
-                                </ListItemButton>
-                            </ListItem>
                             {contactList?.results?.map((item) => (
                                 <ListItem disablePadding>
                                     <ListItemButton>
@@ -62,7 +70,19 @@ function App() {
                         </List>
                     </div>
                 </div>
-                <div className="infoSection">Info section</div>
+
+                {/* Info. session */}
+                <div className="infoSection">
+                    <Router>
+                        <Routes>
+                            <Route path="/contact" element={<ContactStart />} />
+                            <Route
+                                path="/contact/:id"
+                                element={<InfoSession />}
+                            />
+                        </Routes>
+                    </Router>
+                </div>
             </div>
         </div>
     );
