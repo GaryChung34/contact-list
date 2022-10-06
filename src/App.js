@@ -24,18 +24,7 @@ function App() {
 
                     {/* Contact list */}
                     <div className="contactList">
-                        <div className="contactListHeader">
-                            <div className="title">Contact list</div>
-                            <TextField
-                                id="search-bar"
-                                variant="standard"
-                                size="small"
-                                placeholder="search any name"
-                            />
-                        </div>
-                        <div className="contactListContent">
-                            <ContactList />
-                        </div>
+                        <ContactList />
                     </div>
 
                     {/* Info. session */}
