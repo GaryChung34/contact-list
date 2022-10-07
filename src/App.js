@@ -1,12 +1,24 @@
 import "./App.css";
 import InfoSession from "./InfoSession";
 import ContactStart from "./ContactStart";
-import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
+import {
+    Route,
+    BrowserRouter as Router,
+    Routes,
+    useNavigate,
+} from "react-router-dom";
 import ContactList from "./ContactList";
 
 function App() {
+    const navigate = useNavigate();
+
+    const toHome = () => {
+        navigate("/contact");
+        window.location.reload();
+    };
+
     return (
-        <Router>
+        <>
             <div className="App">
                 <div className="container">
                     {/* Nav bar */}
@@ -15,8 +27,8 @@ function App() {
                             <div className="title">Rick and Morty</div>
                         </div>
                         <div className="navBarContact">
-                            <div className="title">
-                                <Link to="/contact">Contact</Link>
+                            <div className="contactButton">
+                                <div onClick={toHome}>Contact</div>
                             </div>
                         </div>
                     </div>
@@ -38,7 +50,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </Router>
+        </>
     );
 }
 

@@ -83,7 +83,7 @@
     min-height: 0;
 
     display: grid;
-    grid-template-rows: 22% auto 7%;
+    grid-template-rows: 23% auto 7%;
 
     border-right: 1px solid lightgray;
     border-left: 1px solid lightgray;
@@ -161,4 +161,17 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
+}
+
+.contactButton {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.contactButton:hover {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: skyblue;
+
+    transform: rotate(-15deg);
 }

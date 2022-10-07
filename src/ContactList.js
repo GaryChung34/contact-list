@@ -80,7 +80,7 @@ function ContactList() {
         setPage(1);
     }, [searchText, status, gender]);
 
-    console.log("status", status);
+    console.log("contactList", contactList);
 
     return (
         <>
@@ -152,21 +152,25 @@ function ContactList() {
             </div>
             <div className="contactListContent">
                 <List>
-                    {contactList?.results?.map((item) => (
-                        <ListItem disablePadding key={item.id}>
-                            <ListItemButton
-                                onClick={() => navigate(`/contact/${item.id}`)}
-                            >
-                                <ListItemAvatar>
-                                    <Avatar
-                                        alt={item?.name}
-                                        src={item?.image}
-                                    />
-                                </ListItemAvatar>
-                                <ListItemText primary={item?.name} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    {contactList?.error !== "There is nothing here"
+                        ? contactList?.results?.map((item) => (
+                              <ListItem disablePadding key={item.id}>
+                                  <ListItemButton
+                                      onClick={() =>
+                                          navigate(`/contact/${item.id}`)
+                                      }
+                                  >
+                                      <ListItemAvatar>
+                                          <Avatar
+                                              alt={item?.name}
+                                              src={item?.image}
+                                          />
+                                      </ListItemAvatar>
+                                      <ListItemText primary={item?.name} />
+                                  </ListItemButton>
+                              </ListItem>
+                          ))
+                        : "Nothing found"}
                 </List>
             </div>
             <div className="contactListToolBar">
