@@ -41,7 +41,10 @@ function App() {
                     {/* Info. session */}
                     <div className="infoSection">
                         <Routes>
+                            {/* this is for starting logo page */}
                             <Route path="/contact" element={<ContactStart />} />
+
+                            {/* detail info when click */}
                             <Route
                                 path="/contact/:id"
                                 element={<InfoSession />}

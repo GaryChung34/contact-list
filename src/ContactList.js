@@ -46,21 +46,11 @@ function ContactList() {
         }
     };
 
-    const isNotEmpty = (val) => {
-        if (val === "") {
-            return false;
-        }
-        return true;
-    };
-
     useEffect(() => {
         if (searchText === "" && status === "" && gender === "") {
             fetch("https://rickandmortyapi.com/api/character")
                 .then((response) => response.json())
-                .then((result) => {
-                    console.log(result);
-                    setContactList(result);
-                })
+                .then((result) => setContactList(result))
                 .catch((error) => {
                     console.error(error);
                 });
@@ -80,10 +70,9 @@ function ContactList() {
         setPage(1);
     }, [searchText, status, gender]);
 
-    console.log("contactList", contactList);
-
     return (
         <>
+            {/* search bar and filter button */}
             <div className="contactListHeader">
                 <div className="title">Contact list</div>
                 <TextField
@@ -150,6 +139,8 @@ function ContactList() {
                     </div>
                 </div>
             </div>
+
+            {/* contact person list */}
             <div className="contactListContent">
                 <List>
                     {contactList?.error !== "There is nothing here"
@@ -173,6 +164,8 @@ function ContactList() {
                         : "Nothing found"}
                 </List>
             </div>
+
+            {/* page switching button */}
             <div className="contactListToolBar">
                 {`Page ${page}/ ${contactList?.info?.pages}`}
                 <IconButton

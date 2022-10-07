@@ -54,11 +54,9 @@ function InfoSession() {
             .catch((error) => console.error(error));
     }, [characterId]);
 
-    console.log("episode: ", episodeList);
-    console.log("char: ", characterInfo);
-
     return (
         <>
+            {/* info header and photo */}
             <div className="infoHeader">
                 <div className="infoAvatar">
                     <Avatar
@@ -69,6 +67,8 @@ function InfoSession() {
                     />
                 </div>
                 <div className="infoName">{characterInfo.name}</div>
+
+                {/* personal info list */}
                 <div className="infoDetail">
                     <div className="title">Personal Info</div>
                     <ol>
@@ -85,6 +85,7 @@ function InfoSession() {
                 </div>
             </div>
 
+            {/* episode table */}
             <div className="tableContainer">
                 <TableContainer
                     component={Paper}
