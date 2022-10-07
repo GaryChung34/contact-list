@@ -1,12 +1,7 @@
 import "./App.css";
 import InfoSession from "./InfoSession";
 import ContactStart from "./ContactStart";
-import {
-    Route,
-    BrowserRouter as Router,
-    Routes,
-    useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import ContactList from "./ContactList";
 
 function App() {
