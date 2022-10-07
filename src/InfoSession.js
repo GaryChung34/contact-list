@@ -1,6 +1,7 @@
 import {
     Avatar,
     Paper,
+    styled,
     Table,
     TableBody,
     TableCell,
@@ -8,8 +9,16 @@ import {
     TableHead,
     TableRow,
 } from "@mui/material";
+import { tableCellClasses } from "@mui/material/TableCell";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "lightgray",
+    },
+}));
 
 function InfoSession() {
     const { id: characterId } = useParams();
@@ -49,53 +58,80 @@ function InfoSession() {
     console.log("char: ", characterInfo);
 
     return (
-        <div>
-            <div className="title">{characterInfo.name}</div>
-            <Avatar alt={characterInfo.name} src={characterInfo?.image} />
+        <>
+            <div className="infoHeader">
+                <div className="infoAvatar">
+                    <Avatar
+                        alt={characterInfo.name}
+                        src={characterInfo?.image}
+                        style={{ width: "5rem", height: "5rem" }}
+                        component="span"
+                    />
+                </div>
+                <div className="infoName">{characterInfo.name}</div>
+                <div className="infoDetail">
+                    <div className="title">Personal Info</div>
+                    <ol>
+                        <li>{`Status: ${characterInfo.status}`}</li>
+                        <li>{`Gender: ${characterInfo.gender}`}</li>
+                        <li>{`Species: ${characterInfo.species}`}</li>
+                        <li>{`Location: ${characterInfo?.location?.name}`}</li>
+                        <li>{`Origin: ${characterInfo?.origin?.name}`}</li>
+                        <li>{`Created Data: ${moment(
+                            characterInfo.created
+                        ).format("MMMM DD, YYYY")}`}</li>
+                    </ol>
+                    <div className="title">Episodes</div>
+                </div>
+            </div>
 
-            <div className="title">Personal Info</div>
-            <ol>
-                <ul>{`Status: ${characterInfo.status}`}</ul>
-                <ul>{`Gender: ${characterInfo.gender}`}</ul>
-                <ul>{`Species: ${characterInfo.species}`}</ul>
-                <ul>{`Location: ${characterInfo?.location?.name}`}</ul>
-                <ul>{`Origin: ${characterInfo?.origin?.name}`}</ul>
-                <ul>{`Created Data: ${characterInfo.created}`}</ul>
-            </ol>
-
-            <div className="title">Episodes</div>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Air Date</TableCell>
-                            <TableCell>Episode</TableCell>
-                            <TableCell>Created Date</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Array.isArray(episodeList) &&
-                            episodeList?.map((item) => (
-                                <TableRow>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.air_date}</TableCell>
-                                    <TableCell>{item.episode}</TableCell>
-                                    <TableCell>{item.created}</TableCell>
-                                </TableRow>
-                            ))}
-                        {!Array.isArray(episodeList) && (
+            <div className="tableContainer">
+                <TableContainer
+                    component={Paper}
+                    sx={{ overflow: "auto", minHeight: "0", maxHeight: "95%" }}
+                >
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
                             <TableRow>
-                                <TableCell>{episodeList.name}</TableCell>
-                                <TableCell>{episodeList.air_date}</TableCell>
-                                <TableCell>{episodeList.episode}</TableCell>
-                                <TableCell>{episodeList.created}</TableCell>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell>Air Date</StyledTableCell>
+                                <StyledTableCell>Episode</StyledTableCell>
+                                <StyledTableCell>Created Date</StyledTableCell>
                             </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
+                        </TableHead>
+                        <TableBody>
+                            {Array.isArray(episodeList) &&
+                                episodeList?.map((item) => (
+                                    <TableRow>
+                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell>{item.air_date}</TableCell>
+                                        <TableCell>{item.episode}</TableCell>
+                                        <TableCell>
+                                            {moment(episodeList.created).format(
+                                                "DD MMM YYYY"
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            {!Array.isArray(episodeList) && (
+                                <TableRow>
+                                    <TableCell>{episodeList.name}</TableCell>
+                                    <TableCell>
+                                        {episodeList.air_date}
+                                    </TableCell>
+                                    <TableCell>{episodeList.episode}</TableCell>
+                                    <TableCell>
+                                        {moment(episodeList.created).format(
+                                            "DD MMM YYYY"
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        </>
     );
 }
 
